@@ -28,7 +28,7 @@ public class ClienteDAO {
 
             ClienteBeans cli = new ClienteBeans();
             conn = ConnectionFactory.getConection();
-
+            System.out.println("E quero Funcionar direito");
             stm = conn.prepareStatement("select * from tb_cliente where usuario = ? and senha = md5(?)");
 
             stm.setString(1, beans.getUsuario());
