@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./ModeloAdministrador.xhtml">
+            <ui:define name="content">
+                <h:form id="form" >
+                    <p:growl id="growl" showDetail="true" life="5000"/>  
+                    <p:dataTable id="tbCliente" var="ccli" value="#{admin.lista}" paginator="true" rows="10" >
+                        <p:column headerText="Cliente.: " >
+                            <h:outputText value="#{ccli.nome}" />
+                        </p:column>
+                        <p:column headerText="Pasta sistema.:" >
+                            <h:outputText value="#{ccli.pasta}" />
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton" value="Adicionar Cliente" onclick="dlg1.show();" type="button"/>
+                        </f:facet>
+
+                    </p:dataTable>
+                    <p:dialog id="dlg1" header="Cadastrar Cliente" widgetVar="dlg1" position="center" style="margin-bottom: 100px">  
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="2">
+                            <h:outputLabel for="nome" value="ID Cliente.:" />
+                            <p:inputText id="txIdCliente" value="#{admin.cliente.id}" required="false" disabled="true"/>
+                            <h:outputLabel for="nome" value="Nome Cliente.:" />
+                            <p:inputText id="txCliente" value="#{admin.cliente.nome}" required="true"/>
+                            <h:outputLabel for="pasta" value="Pasta sistema.:" />
+                            <p:inputText id="txPasta" value="#{admin.cliente.pasta}" required="true"/>
+                            <h:outputText value="Usuario.:" />
+                            <p:inputText id="txUsuario" value="#{admin.cliente.usuario}" required="true"/>
+                            <h:outputText value="Senha.:" />
+                            <p:password id="txSenha" value="#{admin.cliente.senha}" required="true"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Salvar" style="width: 49%" actionListener="#{admin.crud()}" 
+                                                 oncomplete="dlg1.hide()" 
+                                                 ajax="true" update="growl tbCliente"/>
+                                <p:commandButton value="Cancelar" style="width: 48%" onclick="dlg1.hide();"/>
+
+                            </f:facet>
+                        </h:panelGrid>
+                    </p:dialog> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

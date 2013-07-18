@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./ModeloCliente.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true" life="5000"/>    
+                    <p:panel header="Pesquisa">
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel for="nome" value="Data.:   " />
+                            <p:inputMask id="txIdCliente" value="#{cli.dataPesquisa}" required="false" mask="99/99/9999" />
+                            <p:commandButton value="Pesquisa" actionListener="#{cli.listas}" update="form:dtBkup"/>
+                            
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:dataGrid id="dtBkup" var="bkup" value="#{cli.listaBkup}" columns="2" rows="50">
+                        <p:panel header="#{bkup.nome}">
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <h:outputText value="Arquivo: #{bkup.arquivo}" />
+                                <h:outputText value="Tamanho: #{bkup.tamanho}" />
+                                
+                                <p:commandButton id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
+                                                 icon="ui-icon-arrowthichk-s">
+                                    <f:setPropertyActionListener value="#{bkup}"  target="#{cli.arquivo}" /> 
+                                    <p:fileDownload value="#{cli.downloadArquivo()}" />  
+                                </p:commandButton> 
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                </h:form>
+                <script type="text/javascript">
+                                    function start() {
+                                        statusDialog.show();
+                                    }
+
+                                    function stop() {
+                                        statusDialog.hide();
+                                    }
+                </script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

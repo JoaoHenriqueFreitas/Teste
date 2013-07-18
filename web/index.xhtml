@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:view>
+        <h:head>
+        </h:head>
+        <h:body>
+            <div align="center">
+                <p:growl id="growl" showDetail="true" life="3000" /> 
+                <h:form>
+                    <p:panelGrid columns="2" style="margin-top: 12%">  
+                        <f:facet name="header">  
+                            Login
+                        </f:facet>  
+                        <h:outputLabel for="Versão atual" value="Usuario: *" />  
+                        <p:inputText id="usuario"  value="#{login.usuario.usuario}" label="Usuario" />  
+                        <h:outputLabel for="senha" value="Senha: *" />  
+                        <p:inputText id="senha"  value="#{login.usuario.senha}" required="true" label="Senha" type="password"/>  
+                        <f:facet name="footer">  
+                            <p:commandButton id="logginButton" value="Confirmar" update="growl" 
+                                             actionListener="#{login.verificaLogin}" ajax="false" 
+                                             style="width: 50%; margin-left: 85px">
+                            </p:commandButton>  
+                        </f:facet>  
+                    </p:panelGrid>
+                </h:form>
+            </div>
+        </h:body>
+    </f:view>
+</html>
+
